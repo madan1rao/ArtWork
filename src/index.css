@@ -1,0 +1,104 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
+
+  /* "paper" is the background, "ink" the foreground. These are the dark defaults;
+     [data-theme] below swaps them (set on <html> by the theme toggle). */
+  --color-paper: #0b0a09;
+  --color-paper-2: #171513;
+  --color-ink: #f2eee8;
+  --color-ink-soft: #b3aca3;
+  --color-ink-mute: #7a746c;
+  --color-line: #2a2724;
+  --color-accent: #d4a373;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Both blocks are explicit so a dark island (e.g. the 3D hall) can sit inside a light page. */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --color-paper: #0b0a09;
+  --color-paper-2: #171513;
+  --color-ink: #f2eee8;
+  --color-ink-soft: #b3aca3;
+  --color-ink-mute: #7a746c;
+  --color-line: #2a2724;
+  --color-accent: #d4a373;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --color-paper: #f6f3ee;
+  --color-paper-2: #ece7df;
+  --color-ink: #1a1917;
+  --color-ink-soft: #57534e;
+  --color-ink-mute: #857f78;
+  --color-line: #ddd7ce;
+  --color-accent: #9a6a3a;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    background: var(--color-paper);
+    transition: background-color 0.4s ease, color 0.4s ease;
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    min-height: 100dvh;
+    /* Works swinging in on scroll briefly reach past the edges; never let that scroll
+       the page sideways. `clip` (unlike `hidden`) keeps position: sticky working. */
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1440px;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-ink-mute);
+}
+
+@utility display {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
