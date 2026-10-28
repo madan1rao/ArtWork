@@ -42,6 +42,9 @@
 
 @layer base {
   html {
+    /* Mobile browsers size the page from <html>; clip here too so glows and swinging
+       frames can never make the page scroll sideways. */
+    overflow-x: clip;
     color-scheme: dark;
     background: var(--color-paper);
     transition: background-color 0.4s ease, color 0.4s ease;

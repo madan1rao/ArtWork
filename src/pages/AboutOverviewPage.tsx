@@ -49,9 +49,10 @@ export default function AboutOverviewPage() {
           {stats.map((s) => (
             <div
               key={s.label}
-              className="border-line py-8 not-first:border-l not-first:pl-6 md:py-12 md:not-first:pl-10"
+              className="min-w-0 border-line py-8 not-first:border-l not-first:pl-4 sm:not-first:pl-6 md:py-12 md:not-first:pl-10"
             >
-              <dt className="eyebrow">{s.label}</dt>
+              {/* Narrower tracking on phones so labels like "Departments" fit their column. */}
+              <dt className="eyebrow text-[10px]! tracking-[0.1em]! sm:text-[11px]! sm:tracking-[0.22em]!">{s.label}</dt>
               <dd className="display mt-3 text-5xl tabular-nums md:text-7xl">{s.value || '—'}</dd>
             </div>
           ))}

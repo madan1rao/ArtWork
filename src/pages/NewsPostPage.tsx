@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { photoService } from '@/services/photoService';
 import { useAsync } from '@/hooks/useAsync';
 import { usePageTitle } from '@/hooks/usePageTitle';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { news } from '@/data/news';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { FramedOnWall } from '@/components/ui/ArtFrame';
@@ -17,6 +18,8 @@ export default function NewsPostPage() {
     [slug],
   );
   usePageTitle(post?.title);
+  // A wide, low wall suits big screens; phones get a taller one so the work isn't tiny.
+  const wide = useMediaQuery('(min-width: 768px)');
 
   if (!post) return <NotFoundPage />;
   const cover = covers.find((c) => c.id === post.coverId);
@@ -29,7 +32,7 @@ export default function NewsPostPage() {
 
       {cover && (
         <figure className="container-page">
-          <FramedOnWall photo={cover} wallAspect={16 / 7} fill={0.82} priority sizes="(min-width: 1024px) 40vw, 80vw" />
+          <FramedOnWall photo={cover} wallAspect={wide ? 16 / 7 : 4 / 3} fill={0.82} priority sizes="(min-width: 1024px) 40vw, 80vw" />
           <figcaption className="mt-3 text-xs text-ink-mute">
             {cover.title} — {cover.author}, {cover.date ?? cover.year}
           </figcaption>

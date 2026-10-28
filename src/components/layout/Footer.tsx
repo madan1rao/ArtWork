@@ -4,8 +4,8 @@ import { NAV, site } from '@/config/site';
 export function Footer() {
   return (
     <footer className="mt-28 border-t border-line">
-      <div className="container-page grid gap-12 py-14 md:grid-cols-[1.3fr_repeat(4,1fr)]">
-        <div>
+      <div className="container-page grid grid-cols-2 gap-x-8 gap-y-10 py-14 lg:grid-cols-[1.3fr_repeat(4,1fr)] lg:gap-12">
+        <div className="col-span-2 lg:col-span-1">
           <p className="display text-4xl">{site.name}</p>
           <p className="eyebrow mt-2">{site.tagline}</p>
           <p className="mt-5 max-w-xs text-sm text-ink-soft">

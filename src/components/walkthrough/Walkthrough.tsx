@@ -315,8 +315,10 @@ function Hall({ photos, intro, introClassName = '', label, onExit, enterKey = 0,
             wall, so the label takes the opposite side (left-wall work → label on the right,
             above the controls); on phones the work sits high and the label below it. */}
         <div
-          className={`pointer-events-none absolute inset-x-5 bottom-24 md:inset-x-auto ${
-            frame?.side === -1 ? 'md:right-10 md:bottom-28' : 'md:bottom-10 md:left-10'
+          // Tall screens (phones, portrait tablets) compose the work in the upper half, so the
+          // label sits below it, above the controls. Wide screens put it beside the work.
+          className={`pointer-events-none absolute inset-x-5 bottom-24 sm:inset-x-10 sm:bottom-28 md:landscape:inset-x-auto ${
+            frame?.side === -1 ? 'md:landscape:right-10 md:landscape:bottom-28' : 'md:landscape:bottom-10 md:landscape:left-10'
           }`}
         >
           <AnimatePresence mode="wait">
@@ -328,7 +330,7 @@ function Hall({ photos, intro, introClassName = '', label, onExit, enterKey = 0,
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.5, ease, delay: 0.2 }}
                 style={{ transformPerspective: 800, transformOrigin: frame.side === -1 ? 'bottom right' : 'bottom left' }}
-                className="pointer-events-auto rounded-sm border border-line bg-paper/75 p-4 backdrop-blur-xl md:w-[min(22rem,27vw)] md:p-5"
+                className="pointer-events-auto rounded-sm border border-line bg-paper/75 p-4 backdrop-blur-xl sm:max-w-xl sm:p-5 md:landscape:w-[min(22rem,27vw)]"
               >
                 <p className="text-xs tracking-[0.2em] text-ink-mute tabular-nums">
                   {String(active + 1).padStart(2, '0')} / {String(frames.length).padStart(2, '0')}
